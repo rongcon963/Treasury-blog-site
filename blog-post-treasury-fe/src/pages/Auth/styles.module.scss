@@ -1,0 +1,48 @@
+.containerLogin {
+  .containerLoginContent {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    .btnBack {
+      margin-top: 20px;
+    }
+
+    .btnLogin {
+      background: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 450px;
+      margin-top: 40px;
+    }
+    
+    .btnRegister {
+      background-color: #fff;
+      border: none;
+      margin-top: 40px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+
+  input, textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  textarea {
+    height: 150px;
+  }
+
+  
+}

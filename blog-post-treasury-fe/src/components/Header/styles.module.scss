@@ -1,0 +1,28 @@
+.containerTitle {
+  height: 84px;
+  line-height: 84px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-around;
+  
+  .homeTitle {
+    max-width: 1280px;
+    margin: 0 auto;
+
+    a {
+      text-decoration: none;
+      color: #000;
+    }
+  }
+
+  .userClass {
+    display: flex;
+    gap: 10px;
+
+    .btnLogout {
+      cursor: pointer;
+      font-size: 24px;
+    }
+  }
+}
