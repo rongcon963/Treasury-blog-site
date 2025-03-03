@@ -30,8 +30,12 @@ axiosClient.interceptors.response.use(
     return response;
   },
   async (err) => {
+    console.log('err', err)
     const originalRequest = err.config;
 
+    if (err.response.status === 400) {
+      return Promise.reject(err);
+    }
     if (err.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 

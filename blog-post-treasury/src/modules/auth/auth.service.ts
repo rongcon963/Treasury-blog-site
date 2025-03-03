@@ -44,6 +44,7 @@ export class AuthService {
       await this.userService.update(id, { refresh_token: refreshToken });
 
       return res.json({
+        success: true,
         accessToken,
         newUser,
         message: 'User Signup Successfully',
@@ -60,7 +61,6 @@ export class AuthService {
     const { username, password } = signInDto;
 
     const user = await this.userService.findUserByUsername(username);
-    console.log('user', user);
 
     if (!user) {
       throw new UnauthorizedException('Invalid username or password');
@@ -79,6 +79,7 @@ export class AuthService {
 
     const currentUser = await this.userService.findOne(user.id);
     return res.json({
+      success: true,
       accessToken,
       refreshToken,
       currentUser,
@@ -91,12 +92,7 @@ export class AuthService {
     if (!token) {
       throw new UnauthorizedException('Refresh token not found');
     }
-
-    // const decoded = this.jwtService.verify(token, {
-    //   secret: process.env.REFRESH_TOKEN_SECRET,
-    // });
-    // console.log('decoded', decoded);
-
+    
     const user = await this.userService.findOne(userId);
 
     if (!user || user.refresh_token !== token) {
@@ -106,12 +102,10 @@ export class AuthService {
     const newAccessToken = this.generateAccessToken(user.id, user.username);
     const newRefreshToken = this.generateRefreshToken(user.id, user.username);
 
-    console.log('newAccessToken', newAccessToken)
-    console.log('newRefreshToken', newRefreshToken)
-
     await this.userService.update(userId, { refresh_token: newRefreshToken });
 
     return res.json({
+      success: true,
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
       message: 'Token Refreshed Successfully',

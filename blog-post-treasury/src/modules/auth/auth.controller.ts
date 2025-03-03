@@ -36,10 +36,6 @@ export class AuthController {
       return res.json({
         message: error.message,
       });
-      // return {
-      //   success: false,
-      //   message: error.message,
-      // };
     }
   }
 

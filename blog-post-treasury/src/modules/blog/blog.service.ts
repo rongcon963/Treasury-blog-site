@@ -43,8 +43,6 @@ export class BlogService {
       fileUrl = `${this.configService.get<string>('API_URL')}/public/images/${file.filename}`;
       // Delete old image
       if (blog.image !== fileUrl) {
-        // const oldImagePath = path.join(__dirname, '..', '..', 'public/images', blog.image);
-        // console.log('oldImagePath', oldImagePath)
         const oldImagePath = blog.image;
         if (fs.existsSync(oldImagePath)) {
           fs.unlinkSync(oldImagePath);

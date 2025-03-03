@@ -33,6 +33,7 @@ function Login() {
     cfmpassword: Yup.string()
       .required("Confirm password is required")
       .oneOf([Yup.ref("password"), null], "Passwords must match"),
+    email: Yup.string().email("Invalid email"),
   });
 
   const loginSchema = Yup.object({
@@ -47,16 +48,18 @@ function Login() {
       username: "",
       password: "",
       cfmpassword: "",
+      email: "",
+      full_name: "",
     },
     validationSchema: isRegister ? registerSchema : loginSchema,
     onSubmit: async (values) => {
       if (isLoading) return;
 
-      const { username: username, password } = values;
+      const { username: username, password, email, full_name } = values;
       setIsLoading(true);
 
       if (isRegister) {
-        await register({ username, password })
+        await register({ username, password, email, full_name })
           .then((res) => {
             const { success } = res.data;
             if (success) {
@@ -69,7 +72,7 @@ function Login() {
             }
           })
           .catch((error) => {
-            toast.error(error.response.data.message);
+            toast.error(error.response.data.message[0] || 'Internal server error');
             setIsLoading(false);
           });
       }
@@ -94,7 +97,7 @@ function Login() {
             }
           })
           .catch((error) => {
-            toast.error("error");
+            toast.error("Internal server error");
             setIsLoading(false);
           });
       }
@@ -127,13 +130,27 @@ function Login() {
             formik={formik}
           />
           {isRegister && (
-            <InputCommon
-              id="cfmpassword"
-              label="Confirm Password"
-              type="password"
-              isRequired
-              formik={formik}
-            />
+            <>
+              <InputCommon
+                id="cfmpassword"
+                label="Confirm Password"
+                type="password"
+                isRequired
+                formik={formik}
+              />
+              <InputCommon
+                id="email"
+                label="Email"
+                type="text"
+                formik={formik}
+              />
+              <InputCommon
+                id="full_name"
+                label="Full name"
+                type="text"
+                formik={formik}
+              />
+            </>
           )}
           <button className={btnLogin} type="submit">
             {isLoading ? "LOADING..." : isRegister ? "REGISTER" : "LOGIN"}
